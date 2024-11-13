@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  * Rather, you should subclass it and initialize stringSorter and
  * intSorter in a static @BeforeAll method.
  *
- * @author Your Name
+ * @author Nicole Gorrell
  * @uathor Samuel A. Rebelsky
  */
 public class TestSorter {
@@ -120,4 +120,130 @@ public class TestSorter {
     ArrayUtils.permute(original);
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
+
+  /**
+   * Ensure that an empty array remains as such in its
+   * sorted state.
+   */
+  @Test
+  public void emptyArrayTest() {
+    if (null == intSorter) {
+      return;
+    } // if
+
+    Integer[] original = { };
+    Integer[] expected = original.clone();
+    assertSorts(expected, original, intSorter);
+  } // emptyArrayTest()
+
+  /**
+   * Ensure that a singleton array remains as such in
+   * its sorted state.
+   */
+  @Test
+  public void singletonTest() {
+    if (null == intSorter) {
+      return;
+    } // if
+
+    Integer[] original = { 1 };
+    Integer[] expected = original.clone();
+    assertSorts(expected, original, intSorter);
+  } // singletonTest()
+
+  /**
+   * Ensure that two two separate arrays are sorted
+   * correctly. Then combine the arrays and check
+   * that the final combined array is correctly
+   * sorted.
+   */
+  @Test
+  public void sortMergeTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+
+    String[] o1 = { "i", "like", "animals" };
+    String[] e1 = { "animals", "i", "like" };
+    assertSorts(e1, o1, stringSorter);
+
+    String[] o2 = { "joey", "is", "allergic", "to", "fur" };
+    String[] e2 = { "allergic", "fur", "is", "joey", "to" };
+    assertSorts(e2, o2, stringSorter);
+
+    String[] originalMerge = new String[o1.length + o2.length];
+
+    // merging our two arrays
+    for (int i = 0; i < originalMerge.length; i++) {
+      if (i < o1.length) {
+        originalMerge[i] = o1[i];
+      } // if
+
+      originalMerge[i] = o2[i];
+    } // for
+
+    String[] expectedMerge = { "allergic", "animals", "fur", "i", "is", 
+                              "like", "joey", "to" };
+    assertSorts(expectedMerge, originalMerge, stringSorter);
+  } // sortMergeTest()
+
+  /**
+   * Split an array of integers into two, sort both,
+   * and verify that each are sorted correctly.
+   */
+  public void splitSortTest() {
+    if (null == intSorter) {
+      return;
+    } // if
+
+    int max = 50; // the maximum length of our original array
+    Integer[] originalLong = new Integer[max];
+    
+    // our expected sorts we will compare to
+    Integer[] firstSorted = new Integer[max / 2];
+    Integer[] secondSorted = firstSorted.clone();
+
+    for (int i = 0; i < max; i++) {
+      originalLong[i] = i;
+
+      if (i < max / 2) {
+        firstSorted[i] = i;
+      } // if
+
+      secondSorted[i] = i;
+    } // for
+
+    ArrayUtils.permute(originalLong);
+
+    Integer[] halfOne = new Integer[originalLong.length / 2];
+    Integer[] halfTwo = halfOne.clone();
+
+    for (int i = 0; i < originalLong.length; i++) {
+      if (i < (originalLong.length / 2)) {
+        halfOne[i] = originalLong[i];
+      } // if
+
+      halfTwo[i] = originalLong[i];
+    } // for
+
+    assertSorts(firstSorted, halfOne, intSorter);
+    assertSorts(secondSorted, halfTwo, intSorter);
+  } // splitSortTest()
+
+  /**
+   * Check that an array of randomly permuted strings
+   * sorts correctly.
+   */
+  @Test
+  public void permutedStringsTest() {
+    if (null == stringSorter) {
+      return;
+    } // if
+
+    String[] original = { "you", "have", "a", "message", "to", "read" };
+    String[] expected = original.clone();
+    ArrayUtils.permute(original);
+    assertSorts(expected, original, stringSorter);
+  } // permutedStringsTest()
+
 } // class TestSorter
