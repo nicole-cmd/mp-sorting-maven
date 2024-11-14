@@ -55,12 +55,19 @@ public class SelectionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    for (int i = 0; i < values.length; i++) {
+      if (order.compare(values[i], values[++i]) <= 0) {
+        T s = values[i];
+        swap(values[++i], s);
+      } // if
+    } // for
   } // sort(T[])
 
   /**
    * Swap two values in an array.
    * 
+   * @param arr
+   *   the array we swap our values in.
    * @param i1
    *   the first value to swap.
    * @param i2
@@ -71,6 +78,11 @@ public class SelectionSorter<T> implements Sorter<T> {
    *     position, and vice versa). 
    */
   public void swap(T i1, T i2) {
+    // temporarily stores a value to swap with the other
+    T temp = null;
 
+    temp = i2;
+    i2 = i1;
+    i1 = temp;
   } // swap(T, T)
 } // class SelectionSorter
