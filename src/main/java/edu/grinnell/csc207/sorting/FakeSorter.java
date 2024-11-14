@@ -60,4 +60,20 @@ public class FakeSorter<T> implements Sorter<T> {
     // works.
     ArrayUtils.permute(values);
   } // sort(T[])
+
+  /**
+   * Swap two values in an array.
+   * 
+   * @param i1
+   *   the first value to swap.
+   * @param i2
+   *   the second value to swap. 
+   * 
+   * @post
+   *   The two values have switched places (i1 is in i2's initial
+   *     position, and vice versa). 
+   */
+  public void swap(T i1, T i2) {
+
+  } // swap(T, T)
 } // class FakeSorter
