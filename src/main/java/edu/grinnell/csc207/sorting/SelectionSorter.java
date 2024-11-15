@@ -55,11 +55,18 @@ public class SelectionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
+    if (values.length <= 1) {
+      return;
+    } // if
+
+    int s = 0; // index of our smallest value
+
     for (int i = 0; i < values.length; i++) {
       if (order.compare(values[i], values[++i]) <= 0) {
-        int s = i; // our minimum value
-        swap(values, ++i, s);
+        s = i;
       } // if
+
+      swap(values, ++i, s);
     } // for
   } // sort(T[])
 
