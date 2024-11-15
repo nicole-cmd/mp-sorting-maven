@@ -9,6 +9,7 @@ import java.util.Comparator;
  *   The types of values that are sorted.
  *
  * @author Samuel A. Rebelsky
+ * @author Nicole Gorrell (sort method for selection sort)
  */
 
 public class SelectionSorter<T> implements Sorter<T> {
