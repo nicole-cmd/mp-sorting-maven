@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  * Something that sorts using Quicksort.
@@ -9,6 +10,7 @@ import java.util.Comparator;
  *   The types of values that are sorted.
  *
  * @author Samuel A. Rebelsky
+ * @author Nicole Gorrell (sort method for incomplete Quicksort)
  */
 
 public class Quicksorter<T> implements Sorter<T> {
@@ -55,7 +57,40 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    // track the small and large portions of the array
+    int small = 0;
+    int large = values.length;
+
+    // setting our bounds
+    int lb = small;
+    int ub = large;
+
+    int v1 = generateRand(ub);
+    int v2 = generateRand(ub);
+    int v3 = generateRand(ub);
+
+    int pivot = 0;
+
+    // set pivot
+    if (v1 < v2 && v1 < v3) {
+      pivot = v1;
+    } else if (v2 < v1 && v2 < v3) {
+      pivot = v2;
+    } else {
+      pivot = v3;
+    } // if/else
+
+    swap(values, pivot, 0);
+    small++;
+
+    for (int i = small; i < values.length; i++) {
+      if (order.compare(values[i], values[++i]) < 0) {
+        swap(values, ++i, values.length - 1);
+        large =- 1;
+      } else if (order.compare(values[i], values[++i]) >= 0) {
+        small++;
+      } // if
+    } // for
   } // sort(T[])
 
   /**
@@ -80,4 +115,21 @@ public class Quicksorter<T> implements Sorter<T> {
     arr[i2] = arr[i1];
     arr[i1] = temp;
   } // swap(T, T)
+
+  /**
+   * Generate a random integer from 0 to the array's upper bound.
+   * 
+   * @param upperbound
+   *   the (exclusive) maximum number the randomly generated
+   *   integer can be.
+   * 
+   * @return a randomly generated number within the desired
+   *         range.
+   */
+  private int generateRand(int upperbound) {
+    Random rand = new Random();
+
+    return rand.nextInt(upperbound);
+  } // generateRand(int)
+
 } // class Quicksorter
