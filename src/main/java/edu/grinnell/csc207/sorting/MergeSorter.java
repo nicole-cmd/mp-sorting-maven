@@ -9,6 +9,7 @@ import java.util.Comparator;
  *   The types of values that are sorted.
  *
  * @author Samuel A. Rebelsky
+ * @author Nicole Gorrell (sort method for merge sort)
  */
 
 public class MergeSorter<T> implements Sorter<T> {
@@ -55,7 +56,44 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    if (values.length <= 1) {
+      return;
+    } // if
+
+    int middle = values.length / 2;
+
+    for (int i = 0; i < values.length; i++) {
+      if (i < middle) {
+        if (order.compare(values[++i], values[i]) < 0) {
+          swap(values, ++i, i);
+        } // if
+
+        sort(values);
+      } // if
+
+      sort(values);
+    } // for
+
+    // pointers to keep track of positions in the split array
+    int track1 = 0;
+    int track2 = middle;
+
+    @SuppressWarnings({"unchecked"})
+    T[] newArray = (T[]) new Object[values.length];
+
+    for (int i = 0; i < newArray.length; i++) {
+      if (order.compare(values[track1], values[track2]) < 0) {
+        newArray[i] = values[track1];
+        track1++;
+      } else {
+        newArray[i] = values[track2];
+        track2++;
+      } // if/else
+    } // for
+    
+    /** to remain compatible with Sorter interface, manipulate
+     *  original array */
+    values = newArray;
   } // sort(T[])
 
   /**
@@ -80,4 +118,5 @@ public class MergeSorter<T> implements Sorter<T> {
     arr[i2] = arr[i1];
     arr[i1] = temp;
   } // swap(T, T)
+
 } // class MergeSorter
