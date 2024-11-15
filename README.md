@@ -17,6 +17,9 @@ Acknowledgements
 * "Eboard 18 (Section 2): Sorting, continued" (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/eboards/eboard18-2)
 * "Generics and parametric polymorphism" reading (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/readings/generics.html)
 * "Merge sort" reading (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/readings/mergesort.html)
+* "Quicksort" reading (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/readings/quicksort.html)
+* "Eboard 21 (Section 2): Tree traversal" (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/eboards/eboard21-2)
+* "Eboard 20 (Seciton 2): Pause for breath" (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/eboards/eboard20-2)
 
 This code may be found at <https://github.com/nicole-cmd/mp-sorting-maven.git>. The original code may be found at <https://github.com/Grinnell-CSC207/mp-sorting-maven>.
 
