@@ -59,9 +59,9 @@ public class InsertionSorter<T> implements Sorter<T> {
     for (int i = 1; i < values.length; i++) {
       for (int k = --i; k >= 0; k++) {
         if (order.compare(values[++i], values[i]) < 0) {
-          swap(values[++i], values[i]);
+          swap(values, ++i, i);
         } else if (order.compare(values[k], values[--k]) < 0) {
-          swap(values[k], values[--k]);
+          swap(values, k, --k);
         } // if/else
       } // for
     } // for
@@ -70,22 +70,24 @@ public class InsertionSorter<T> implements Sorter<T> {
   /**
    * Swap two values in an array.
    * 
+   * @param arr
+   *   the array in which we're swapping.
    * @param i1
-   *   the first value to swap.
+   *   the index of the first value to swap.
    * @param i2
-   *   the second value to swap. 
+   *   the index of the second value to swap. 
    * 
    * @post
    *   The two values have switched places (i1 is in i2's initial
    *     position, and vice versa). 
    */
-  public void swap(T i1, T i2) {
+  public void swap(T[] arr, int i1, int i2) {
     // temporarily stores a value to swap with the other
     T temp = null;
 
-    temp = i2;
-    i2 = i1;
-    i1 = temp;
+    temp = arr[i2];
+    arr[i2] = arr[i1];
+    arr[i1] = temp;
   } // swap(T, T)
 
 } // class InsertionSorter
