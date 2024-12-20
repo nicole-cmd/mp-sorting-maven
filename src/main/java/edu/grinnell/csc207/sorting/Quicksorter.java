@@ -1,5 +1,6 @@
 package edu.grinnell.csc207.sorting;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 
@@ -57,21 +58,82 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // track the small and large portions of the array
-    int small = 0;
-    int large = values.length;
+    try {
+      partition(values);
+    } catch (Exception e) {
+      // Do nothing.
+    } // try/catch
+  } // sort(T[])
 
-    // setting our bounds
-    int lb = small;
-    int ub = large;
+  // +-----------------+-----------------------------------------------------
+  // | Private Methods |
+  // +-----------------+
 
-    int v1 = generateRand(ub);
-    int v2 = generateRand(ub);
-    int v3 = generateRand(ub);
+  /**
+   * Sort an array using Quicksort.
+   *
+   * @param values
+   *   an array to sort.
+   *
+   * @post
+   *   The array has been sorted according to some order (often
+   *   one given to the constructor).
+   * @post
+   *   For all i, 0 &lt; i &lt; values.length,
+   *     order.compare(values[i-1], values[i]) &lt;= 0
+   * @throws Exception if the array is not of an appropriate length.
+   */
+  private void partition(T[] values) throws Exception {
+    if (values.length <= 1) {
+      throw new Exception("Array is not long enough to sort");
+    } else if (values.length == 1) {
+      return;
+    } // if
+
+    // setting our bounds and finding pivot
+    int sm = 0;
+    int lg = values.length;
+    int pivot = findPivot(lg);
+
+    Sorter.swap(values, pivot, 0);
+    sm++;
+
+    int i = 0;
+    while (sm != lg) {
+      if (order.compare(values[i], values[++i]) < 0) {
+        Sorter.swap(values, ++i, lg - 1);
+        lg =- 1;
+      } else if (order.compare(values[i], values[++i]) >= 0) {
+        sm++;
+      } // if
+    } // while
+    
+    // could be sm or lg by this point, they will be equal
+    pivot = sm;
+    Sorter.swap(values, pivot, 0);
+    T[] firstHalf = Arrays.copyOfRange(values, 0, pivot);
+    T[] secondHalf = Arrays.copyOfRange(values, pivot, values.length);
+    partition(firstHalf);
+    partition(secondHalf);
+  } // partition(T[])
+
+  /**
+   * Find a pivot point in our array to save for the final swap.
+   * 
+   * @param limit
+   *   The bound for our randomly generated pivot to fall within
+   *   the array length.
+   *
+   * @return the determined pivot index of the array.
+   */
+  private int findPivot(int limit) {
+    int v1 = generateRand(limit);
+    int v2 = generateRand(limit);
+    int v3 = generateRand(limit);
 
     int pivot = 0;
 
-    // set pivot
+    // set pivot by finding the median randomly-generated value
     if (v1 < v2 && v1 < v3) {
       pivot = v1;
     } else if (v2 < v1 && v2 < v3) {
@@ -79,42 +141,8 @@ public class Quicksorter<T> implements Sorter<T> {
     } else {
       pivot = v3;
     } // if/else
-
-    swap(values, pivot, 0);
-    small++;
-
-    for (int i = small; i < values.length; i++) {
-      if (order.compare(values[i], values[++i]) < 0) {
-        swap(values, ++i, values.length - 1);
-        large =- 1;
-      } else if (order.compare(values[i], values[++i]) >= 0) {
-        small++;
-      } // if
-    } // for
-  } // sort(T[])
-
-  /**
-   * Swap two values in an array.
-   * 
-   * @param arr
-   *   the array in which we're swapping.
-   * @param i1
-   *   the index of the first value to swap.
-   * @param i2
-   *   the index of the second value to swap. 
-   * 
-   * @post
-   *   The two values have switched places (i1 is in i2's initial
-   *     position, and vice versa). 
-   */
-  public void swap(T[] arr, int i1, int i2) {
-    // temporarily stores a value to swap with the other
-    T temp = null;
-
-    temp = arr[i2];
-    arr[i2] = arr[i1];
-    arr[i1] = temp;
-  } // swap(T, T)
+    return pivot;
+  } // findPivot(int)
 
   /**
    * Generate a random integer from 0 to the array's upper bound.

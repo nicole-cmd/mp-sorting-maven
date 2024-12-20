@@ -90,6 +90,7 @@ public class MergeSorter<T> implements Sorter<T> {
     } // if
 
     int middle = values.length / 2;
+    T[] firstHalf = Arrays.copyOfRange(values, 0, middle);
     T[] secondHalf = Arrays.copyOfRange(values, middle, values.length);
 
     for (int i = 0; i < values.length; i++) {
@@ -98,7 +99,7 @@ public class MergeSorter<T> implements Sorter<T> {
           Sorter.swap(values, ++i, i);
         } // if
 
-        mergeSort(values);
+        mergeSort(firstHalf);
       } // if
 
       mergeSort(secondHalf);
