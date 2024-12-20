@@ -20,6 +20,7 @@ Acknowledgements
 * "Quicksort" reading (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/readings/quicksort.html)
 * "Eboard 21 (Section 2): Tree traversal" (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/eboards/eboard21-2)
 * "Eboard 20 (Seciton 2): Pause for breath" (https://rebelsky.cs.grinnell.edu/Courses/CSC207/2024Fa/eboards/eboard20-2)
+* "How to make a Java Generic method static? - Stack Overflow" (https://stackoverflow.com/questions/4409100/how-to-make-a-java-generic-method-static)
 
 This code may be found at <https://github.com/nicole-cmd/mp-sorting-maven.git>. The original code may be found at <https://github.com/Grinnell-CSC207/mp-sorting-maven>.
 
