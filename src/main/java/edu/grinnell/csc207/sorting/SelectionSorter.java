@@ -56,7 +56,35 @@ public class SelectionSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
+    try {
+      selectionSort(values);
+    } catch (Exception e) {
+      // Do nothing.
+    } // try/catch
+  } // sort(T[])
+
+  // +-----------------+-----------------------------------------------------
+  // | Private Methods |
+  // +-----------------+
+
+  /**
+   * Sort an array using selection sort.
+   *
+   * @param values
+   *   an array to sort.
+   *
+   * @post
+   *   The array has been sorted according to some order (often
+   *   one given to the constructor).
+   * @post
+   *   For all i, 0 &lt; i &lt; values.length,
+   *     order.compare(values[i-1], values[i]) &lt;= 0
+   * @throws Exception if the array is not of an appropriate length.
+   */
+  public void selectionSort(T[] values) throws Exception {
     if (values.length <= 1) {
+      throw new Exception("Array is not long enough to sort");
+    } else if (values.length == 1) {
       return;
     } // if
 
@@ -67,30 +95,7 @@ public class SelectionSorter<T> implements Sorter<T> {
         s = i;
       } // if
 
-      swap(values, ++i, s);
+      Sorter.swap(values, ++i, s);
     } // for
-  } // sort(T[])
-
-  /**
-   * Swap two values in an array.
-   * 
-   * @param arr
-   *   the array in which we're swapping.
-   * @param i1
-   *   the index of the first value to swap.
-   * @param i2
-   *   the index of the second value to swap. 
-   * 
-   * @post
-   *   The two values have switched places (i1 is in i2's initial
-   *     position, and vice versa). 
-   */
-  public void swap(T[] arr, int i1, int i2) {
-    // temporarily stores a value to swap with the other
-    T temp = null;
-
-    temp = arr[i2];
-    arr[i2] = arr[i1];
-    arr[i1] = temp;
-  } // swap(T, T)
+  } // selectionSort(T[])
 } // class SelectionSorter

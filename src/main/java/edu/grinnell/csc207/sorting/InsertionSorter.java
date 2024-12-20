@@ -78,6 +78,7 @@ public class InsertionSorter<T> implements Sorter<T> {
    * @post
    *   For all i, 0 &lt; i &lt; values.length,
    *     order.compare(values[i-1], values[i]) &lt;= 0
+   * @throws Exception if the array is not of an appropriate length.
    */
   private void insertionSort(T[] values) throws Exception {
     if (values.length <= 1) {
