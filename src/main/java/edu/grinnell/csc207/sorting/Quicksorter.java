@@ -98,14 +98,15 @@ public class Quicksorter<T> implements Sorter<T> {
     Sorter.swap(values, pivot, 0);
     sm++;
 
-    int i = 0;
+    int i = sm;
     while (sm != lg) {
-      if (order.compare(values[i], values[++i]) < 0) {
+      if (order.compare(values[sm], values[++i]) < 0) {
         Sorter.swap(values, ++i, lg - 1);
         lg =- 1;
-      } else if (order.compare(values[i], values[++i]) >= 0) {
+      } else if (order.compare(values[sm], values[++i]) >= 0) {
         sm++;
       } // if
+      i++;
     } // while
     
     // could be sm or lg by this point, they will be equal
