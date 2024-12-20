@@ -81,23 +81,21 @@ public class SelectionSorter<T> implements Sorter<T> {
    *     order.compare(values[i-1], values[i]) &lt;= 0
    * @throws Exception if the array is not of an appropriate length.
    */
-  public void selectionSort(T[] values) throws Exception {
+  private void selectionSort(T[] values) throws Exception {
     if (values.length <= 1) {
       throw new Exception("Array is not long enough to sort");
     } else if (values.length == 1) {
       return;
     } // if
 
-    int s = 0; // index of our smallest value
-
     for (int i = 0; i < values.length; i++) {
+      int s = 0; // index of our smallest value
       for (int comp = 1; comp < values.length; comp++) {
-        if (order.compare(values[comp], values[i]) <= 0) {
+        if (order.compare(values[comp], values[i]) < 0) {
           s = comp;
         } // if
-
-        Sorter.swap(values, i, s);
       } // for
+      Sorter.swap(values, i, s);
     } // for
   } // selectionSort(T[])
 } // class SelectionSorter
