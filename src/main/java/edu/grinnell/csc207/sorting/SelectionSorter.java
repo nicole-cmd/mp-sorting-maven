@@ -91,11 +91,13 @@ public class SelectionSorter<T> implements Sorter<T> {
     int s = 0; // index of our smallest value
 
     for (int i = 0; i < values.length; i++) {
-      if (order.compare(values[i], values[++i]) <= 0) {
-        s = i;
-      } // if
+      for (int comp = 1; comp < values.length; comp++) {
+        if (order.compare(values[comp], values[i]) <= 0) {
+          s = comp;
+        } // if
 
-      Sorter.swap(values, ++i, s);
+        Sorter.swap(values, i, s);
+      } // for
     } // for
   } // selectionSort(T[])
 } // class SelectionSorter
